@@ -1,19 +1,24 @@
-#pragma once
-#include "AnimatedSprite.h"
+#ifndef PLAYER_H
+#define PLAYER_H
+#include "Events.h"
 #include "PlayerState.h"
-#include <SDL2/SDL.h>
+#include "AnimatedSprite.h"
+
 class Player
 {
 private:
-    AnimatedSprite m_animatedSprite;
-    PlayerState* m_state;
+	PlayerState* m_state;
+	AnimatedSprite m_animated_sprite;
+
 public:
-    Player(const AnimatedSprite& t_animatedSprite);
-	virtual void handleInput(SDL_Event& e);
+	Player(const AnimatedSprite&);
+	virtual void handleInput(gpp::Events);
 	virtual void update();
 	AnimatedSprite& getAnimatedSprite();
 	AnimatedSprite& getAnimatedSpriteFrame();
-	void setAnimatedSprite(AnimatedSprite& t_animatedSprite);
+	void setAnimatedSprite(AnimatedSprite&);
 	PlayerState* getPlayerState();
-	void setPlayerState(PlayerState* t_state);
+	void setPlayerState(PlayerState*);
 };
+#endif
+
