@@ -31,7 +31,7 @@ void RevivedPlayerState::enter(Player& player)
 	DEBUG_MSG("Entering RevivedPlayerState");
 
 	// How long in State Clock
-	this->m_timer.restart();
+	this->m_timer.reset();
 
 	// Clear existing frames
 	player.getAnimatedSprite().clearFrames();

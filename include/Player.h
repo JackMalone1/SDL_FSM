@@ -12,6 +12,7 @@ private:
 
 public:
 	Player(const AnimatedSprite&);
+	Player(AnimatedSprite*);
 	virtual void handleInput(gpp::Events);
 	virtual void update();
 	AnimatedSprite& getAnimatedSprite();

@@ -2,7 +2,7 @@
 
 AnimatedSprite::AnimatedSprite() :
     m_currentFrame(0),
-    m_time(0.5f),
+    m_time(5.0f),
     m_loop(true),
     m_playCount(0),
     m_maxPlays(0),

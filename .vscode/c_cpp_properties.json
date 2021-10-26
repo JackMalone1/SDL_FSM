@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${default}"
+                "${default}",
+                "${workspaceFolder}/include"
             ],
             "windowsSdkVersion": "10.0.18362.0",
             "compilerPath": "E:/mys64/mingw64/bin/g++.exe",

@@ -10,6 +10,12 @@ Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
 	m_state->enter(*this);
 }
 
+Player::Player(AnimatedSprite* sprite) : m_animated_sprite(*sprite)
+{
+	m_state = new IdlePlayerState();
+	m_state->enter(*this);
+}
+
 void Player::handleInput(gpp::Events input) {
 	PlayerState * state = m_state->handleInput(input);
 

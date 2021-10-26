@@ -4,10 +4,7 @@
 #include <vector>
 #include <stack>
 #include <iostream>
-#include "LegoBrickFactory.h"
-#include "ClayBrickFactory.h"
-#include "WoodBrickFactory.h"
-#include "Globals.h"
+
 
 class Command
 {
@@ -23,78 +20,6 @@ public:
 protected:
     Command(){};
     int counter=0;
-};
-
-class BuildLegoBrickCommand : public Command
-{ 
-public:
-    BuildLegoBrickCommand() = default;
-    ~BuildLegoBrickCommand(){};
-    virtual void execute() 
-    {
-        std::cout << "Order lego brick" << std::endl;
-        Factory* factory = new LegoBrickFactory();
-        m_bricks.push_back(factory->getBrick());
-        add();
-    }
-
-    virtual void undo()
-    {
-        legoBrickCounter--;
-        std::cout << "remove one" << std::endl;
-    }
-    virtual void redo()
-    {
-        legoBrickCounter++;
-        std::cout << "add one" << std::endl;
-    }
-};
-
-class BuildClayBrickCommand : public Command
-{
-public:
-    BuildClayBrickCommand() = default;
-    ~BuildClayBrickCommand(){};
-    virtual void execute() 
-    {
-        std::cout << "Order clay brick" << std::endl;
-        Factory* factory = new ClayBrickFactory();
-        m_bricks.push_back(factory->getBrick());
-    }
-    virtual void undo()
-    {
-        clayBrickCounter--;
-        std::cout << "remove one" << std::endl;
-    }
-    virtual void redo()
-    {
-        clayBrickCounter++;
-        std::cout << "add one" << std::endl;
-    }
-};
-
-class BuildWoodBrickCommand : public Command
-{
-public:
-    BuildWoodBrickCommand() = default;
-    ~BuildWoodBrickCommand(){};
-    virtual void execute() 
-    {
-        std::cout << "order wood brick" << std::endl;
-        Factory* factory = new WoodBrickFactory();
-        m_bricks.push_back(factory->getBrick());
-        counter = 0;
-    }
-    virtual void undo()
-    {
-        woodBrickCounter--;
-        std::cout << "remove one" << std::endl;
-    }
-    virtual void redo()
-    {
-        woodBrickCounter++;
-        std::cout << "add one" << std::endl;
-    }
 };
 
 class MacroCommand : public Command

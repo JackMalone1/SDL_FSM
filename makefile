@@ -13,7 +13,7 @@ build:
 	rm -rf ${BUILD_DIR} || true
 	mkdir ${BUILD_DIR}
 	@echo "Compiling code"
-	g++ -o ${BUILD_DIR}/${fileName} ${files} -I. ${LINKER_FLAGS}
+	g++ -o ${BUILD_DIR}/${fileName} ${files} -I. -I./include ${LINKER_FLAGS}
 	@echo "Build completed"
 
 clean:

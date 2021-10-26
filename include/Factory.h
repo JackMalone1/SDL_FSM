@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Brick.h"
+
 #include <vector>
 
+template <typename T>
 class Factory
 {
 public:
-    virtual Brick* getBrick() = 0;
+    virtual T* getObject(){return new T()};
 };
