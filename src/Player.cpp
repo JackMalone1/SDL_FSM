@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include "../include/Player.h"
 #include "../include/Events.h"
-#include <IdlePlayerState.h>
+#include "../include/IdlePlayerState.h"
 
 
 Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
 {
-	// Set the Player to Default to IdlePlayer State 
-	// and Enter that State
 	m_state = new IdlePlayerState();
 	m_state->enter(*this);
 }
