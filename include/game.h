@@ -9,6 +9,7 @@
 #include "Command.h"
 #include "Player.h"
 #include "Defines.h"
+#include <map>
 
 class Game
 {
@@ -27,13 +28,11 @@ private:
     SDL_Renderer* renderer = nullptr;
     TTF_Font* m_font = nullptr;
     SDL_Event e;
-    MacroCommand commands;
     SDL_Texture* m_totalsText;
     SDL_Rect m_totalsRect;
     bool run = true;
     Player* player;
     AnimatedSprite* player_animated_sprite;
     SDL_Texture* player_texture;
-private:
-
+    std::map<std::string, Command*> m_events; 
 };

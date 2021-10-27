@@ -27,6 +27,26 @@ Game::Game()
         SDL_FreeSurface(textureSurface);
         player_animated_sprite = new AnimatedSprite(player_texture);
         player = new Player(player_animated_sprite);
+
+		m_events.emplace("ACCEND_START", new AccendLadderStartCommand());
+		m_events.emplace("ACCEND_STOP", new AccendLadderStopCommand());
+		m_events.emplace("ATTACK", new AttackCommand());
+		m_events.emplace("CLIMB_DOWN_START", new ClimbDownStartCommand());
+		m_events.emplace("CLIMB_DOWN_STOP", new ClimbDownStopCommand());
+		m_events.emplace("DESCEND", new DescendLadderCommand());
+		m_events.emplace("DIED", new DiedCommand());
+		m_events.emplace("GLIDE", new GlideCommand());
+		m_events.emplace("IDLE", new IdleCommand());
+		m_events.emplace("JUMP_ATTACK_START", new JumpAttackStartCommand());
+		m_events.emplace("JUMP_ATTACK_STOP", new JumpAttackStopCommand());
+		m_events.emplace("JUMP_START", new JumpStartCommand());
+		m_events.emplace("JUMP_THROW_START", new JumpThrowStartCommand());
+		m_events.emplace("REVIVE", new ReviveCommand());
+		m_events.emplace("RUN_RIGHT_START", new RunRightStartCommand());
+		m_events.emplace("RUN_RIGHT_STOP", new RunRightStopCommand());
+		m_events.emplace("SLIDE", new SlideCommand());
+		m_events.emplace("THROW_START", new ThrowStartCommand());
+		m_events.emplace("THROW_STOP", new ThrowStopCommand());
     }
 }
 

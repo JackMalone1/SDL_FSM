@@ -4,6 +4,8 @@
 #include <vector>
 #include <stack>
 #include <iostream>
+#include "Events.h"
+#include <string>
 
 
 class Command
@@ -11,73 +13,102 @@ class Command
 
 public:
     virtual ~Command(){};
-    virtual void execute() = 0;
-    virtual void undo(){};
-    virtual void redo(){};
-    virtual void add(){counter++;}
-    virtual void remove(){counter--;}
-    virtual int getAmount(){return counter;}
+    virtual void execute(gpp::Events* event) = 0;
 protected:
     Command(){};
-    int counter=0;
 };
 
-class MacroCommand : public Command
+class AccendLadderStartCommand : public Command
 {
-public:
-    MacroCommand(){};
-    virtual ~MacroCommand(){};
-    virtual void add(Command* command)
-    {
-        command->add();
-        commands.push_back(command);
-    }
-    virtual void remove()
-    {
-        if(commands.size() > 0)
-        {
-            std::cout << "remove one" << std::endl;
-            undoCommands.push(commands.at(commands.size() - 1));
-            commands.pop_back();
-            undoCommands.top()->remove();
-        }
-    }
-    virtual void execute()
-    {
-        if(commands.size() > 0)
-        {
-            for(Command* command : commands)
-            {
-                command->execute();
-            }
-        }
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::ASCEND_LADDER_EVENT);}
+};
 
-    }
+class AccendLadderStopCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_UP_STOP_EVENT);}
+};
 
-    virtual void undo()
-    {
-        if(commands.size() > 0)
-        {
-            std::cout << "undo last command" << std::endl;
-            undoCommands.push(commands.at(commands.size()-1));
-            commands.at(commands.size()-1)->undo();
-            commands.pop_back();
-            undoCommands.top()->remove();
-        }
-    }
+class AttackCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::ATTACK_START_EVENT);}
+};
 
-    virtual void redo()
-    {
-        if(undoCommands.size() > 0)
-        {
-            std::cout << "redo last command" << std::endl;
-            undoCommands.top()->add();
-            undoCommands.top()->redo();
-            commands.push_back(undoCommands.top());
-            undoCommands.pop();
-        }
-    }
-private:
-    std::vector<Command*> commands;
-    std::stack<Command*> undoCommands;
+class ClimbDownStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_DOWN_START_EVENT);}
+};
+
+class ClimbDownStopCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_DOWN_STOP_EVENT);}
+};
+
+class DescendLadderCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::DESCEND_LADDER_EVENT);}
+};
+
+class DiedCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::DIED_EVENT);}
+};
+
+class GlideCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::GLIDE_EVENT);}
+};
+
+class IdleCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::NONE);}
+};
+
+class JumpAttackStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::JUMP_ATTACK_START_EVENT);}
+};
+
+class JumpAttackStopCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::JUMP_ATTACK_STOP_EVENT);}
+};
+
+class JumpStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::JUMP_UP_EVENT);}
+};
+
+class JumpThrowStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::JUMP_THROW_START_EVENT);}
+};
+
+class ReviveCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::REVIVED_EVENT);}
+};
+
+class RunRightStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);}
+};
+
+class RunRightStopCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::RUN_RIGHT_STOP_EVENT);}
+};
+
+class SlideCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::SLIDE_EVENT);}
+};
+
+class ThrowStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::THROW_START_EVENT);}
+};
+
+class ThrowStopCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::THROW_STOP_EVENT);}
 };
