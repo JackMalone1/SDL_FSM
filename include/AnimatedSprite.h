@@ -12,7 +12,7 @@ public:
 	~AnimatedSprite();
 
     const Timer& getTimer();
-    uint32_t getTime();
+    float getTime();
     const std::vector<SDL_Rect>& getFrames();
     void clearFrames();
     const SDL_Rect& getFrame(int);
@@ -22,7 +22,7 @@ public:
     const bool getLooped();
     void setPlayed(bool);
     const bool getPlayed();
-    void setTime(uint32_t);
+    void setTime(float);
     void update();
 
     void setTextureRect(SDL_Rect);

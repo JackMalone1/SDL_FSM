@@ -47,11 +47,6 @@ void Game::handleEvents()
 
         if(e.type == SDL_KEYDOWN)
         {
-            if (e.key.keysym.sym == SDLK_d)
-			{
-
-			}
-
 			if (e.key.keysym.sym == SDLK_d) {
 					DEBUG_MSG("gpp::Events::Event::DIED_EVENT");
 					input.setCurrent(gpp::Events::Event::DIED_EVENT);
@@ -166,14 +161,12 @@ void Game::handleEvents()
 				DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
 				input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
 			}
-
 			// Jump Attack Event
 			else if (e.key.keysym.sym == SDLK_h)
 			{
 				DEBUG_MSG("gpp::Events::Event::HIT_GROUND_EVENT");
 				input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
 			}
-
 			// Jump Throw Attack Event
 			else if (e.key.keysym.sym == SDLK_h)
 			{
@@ -181,6 +174,64 @@ void Game::handleEvents()
 				input.setCurrent(gpp::Events::Event::HIT_GROUND_EVENT);
 			}
         }
+		else if(e.type == SDL_KEYUP)
+		{
+			if (e.key.keysym.sym == SDLK_z 
+				&& 
+				e.key.keysym.sym == SDLK_RIGHT)
+			{
+				DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
+				input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+			}
+			// Stop Attack
+			else if(e.key.keysym.sym == SDLK_z)
+			{
+				DEBUG_MSG("gpp::Events::Event::ATTACK_STOP_EVENT");
+				input.setCurrent(gpp::Events::Event::ATTACK_STOP_EVENT);
+			}
+			// Run and Stop Throw Attack
+			else if (e.key.keysym.sym == SDLK_x
+				&&
+				e.key.keysym.sym == SDLK_RIGHT)
+			{
+				DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
+				input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+			}
+			// Stop Throw Attack
+			else if (e.key.keysym.sym == SDLK_x)
+			{
+				DEBUG_MSG("gpp::Events::Event::THROW_STOP_EVENT");
+				input.setCurrent(gpp::Events::Event::THROW_STOP_EVENT);
+			}
+			// Stop Running Right
+			else if (e.key.keysym.sym == SDLK_RIGHT)
+			{
+				DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_STOP_EVENT");
+				input.setCurrent(gpp::Events::Event::RUN_RIGHT_STOP_EVENT);
+			}
+			// Stop Slide
+			else if (e.key.keysym.sym == SDLK_DOWN
+				&&
+				e.key.keysym.sym == SDLK_RIGHT)
+			{
+				DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
+				input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+			}
+			// Stop Moving Up
+			else if (e.key.keysym.sym == SDLK_UP)
+			{
+				DEBUG_MSG("gpp::Events::Event::MOVE_UP_STOP_EVENT");
+				input.setCurrent(gpp::Events::Event::MOVE_UP_STOP_EVENT);
+			}
+			// Stop Moving Down
+			else if (e.key.keysym.sym == SDLK_DOWN)
+			{
+				DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_STOP_EVENT");
+				input.setCurrent(gpp::Events::Event::MOVE_DOWN_STOP_EVENT);
+			}
+		}
+		player->handleInput(input);
+
     }
 }
 

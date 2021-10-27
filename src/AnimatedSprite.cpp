@@ -2,7 +2,7 @@
 
 AnimatedSprite::AnimatedSprite() :
     m_currentFrame(0),
-    m_time(5.0f),
+    m_time(50.5f),
     m_loop(true),
     m_playCount(0),
     m_maxPlays(0),
@@ -19,6 +19,7 @@ AnimatedSprite::AnimatedSprite(SDL_Texture* t_texture) : AnimatedSprite()
 
 AnimatedSprite::AnimatedSprite(SDL_Texture* t_texture, SDL_Rect t_rect) : AnimatedSprite(m_texture)
 {
+    DEBUG_MSG("AnimatedSprite(SDL_Texture*, SDL_Rect)");
     m_frames.push_back(t_rect);
 }
 
@@ -32,12 +33,12 @@ const Timer& AnimatedSprite::getTimer()
     return m_timer;
 }
 
-uint32_t AnimatedSprite::getTime()
+float AnimatedSprite::getTime()
 {
     return m_time;
 }
 
-void AnimatedSprite::setTime(uint32_t t_time)
+void AnimatedSprite::setTime(float t_time)
 {
     m_time = t_time;
 }
