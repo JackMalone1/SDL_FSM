@@ -3,9 +3,10 @@
 
 #include <vector>
 
-template <typename T>
+
 class Factory
 {
 public:
-    virtual T* getObject(){return new T()};
+    template<typename T>
+    T* getObject(){return new T();}
 };

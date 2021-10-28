@@ -5,7 +5,7 @@ Game::Game()
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         std::cout << "SDL could not be initialised. Error: " << SDL_GetError();
-        run = false;
+        running = false;
     }
     else
     {
@@ -27,36 +27,50 @@ Game::Game()
         SDL_FreeSurface(textureSurface);
         player_animated_sprite = new AnimatedSprite(player_texture);
         player = new Player(player_animated_sprite);
-
-		m_events.emplace("ACCEND_START", new AccendLadderStartCommand());
-		m_events.emplace("ACCEND_STOP", new AccendLadderStopCommand());
-		m_events.emplace("ATTACK", new AttackStartCommand());
-		m_events.emplace("ATTACK_STOP", new AttackStopCommand());
-		m_events.emplace("CLIMB_DOWN_START", new ClimbDownStartCommand());
-		m_events.emplace("CLIMB_DOWN_STOP", new ClimbDownStopCommand());
-		m_events.emplace("DESCEND", new DescendLadderCommand());
-		m_events.emplace("DIED", new DiedCommand());
-		m_events.emplace("GLIDE", new GlideCommand());
-		m_events.emplace("IDLE", new IdleCommand());
-		m_events.emplace("JUMP_ATTACK_START", new JumpAttackStartCommand());
-		m_events.emplace("JUMP_ATTACK_STOP", new JumpAttackStopCommand());
-		m_events.emplace("JUMP_START", new JumpStartCommand());
-		m_events.emplace("JUMP_THROW_START", new JumpThrowStartCommand());
-		m_events.emplace("REVIVE", new ReviveCommand());
-		m_events.emplace("RUN_RIGHT_START", new RunRightStartCommand());
-		m_events.emplace("RUN_RIGHT_STOP", new RunRightStopCommand());
-		m_events.emplace("SLIDE", new SlideCommand());
-		m_events.emplace("THROW_START", new ThrowStartCommand());
-		m_events.emplace("THROW_STOP", new ThrowStopCommand());
-		m_events.emplace("HIT_LADDER_BOTTOM", new HitLadderBottomCommand());
-		m_events.emplace("HIT_LADDER_TOP", new HitLadderTopCommand());
-		m_events.emplace("HIT_GROUND", new HitGroundCommand());
+		Factory factory;
+		m_events.emplace("ACCEND_START", factory.getObject<AccendLadderStartCommand>());
+		m_events.emplace("ACCEND_STOP", factory.getObject<AccendLadderStopCommand>());
+		m_events.emplace("MOVE_UP_START",factory.getObject<MoveUpStartCommand>());
+		m_events.emplace("MOVE_UP_STOP", factory.getObject<MoveUpStopCommand>());
+		m_events.emplace("MOVE_DOWN_START",factory.getObject<MoveDownStartCommand>());
+		m_events.emplace("MOVE_DOWN_STOP", factory.getObject<MoveDownStopCommand>());
+		m_events.emplace("ATTACK", factory.getObject<AttackStartCommand>());
+		m_events.emplace("ATTACK_STOP", factory.getObject<AttackStopCommand>());
+		m_events.emplace("CLIMB_DOWN_START", factory.getObject<ClimbDownStartCommand>());
+		m_events.emplace("CLIMB_DOWN_STOP", factory.getObject<ClimbDownStopCommand>());
+		m_events.emplace("DESCEND", factory.getObject<DescendLadderCommand>());
+		m_events.emplace("DIED", factory.getObject<DiedCommand>());
+		m_events.emplace("GLIDE", factory.getObject<GlideCommand>());
+		m_events.emplace("IDLE", factory.getObject<IdleCommand>());
+		m_events.emplace("JUMP_ATTACK_START", factory.getObject<JumpAttackStartCommand>());
+		m_events.emplace("JUMP_ATTACK_STOP", factory.getObject<JumpAttackStopCommand>());
+		m_events.emplace("JUMP_START", factory.getObject<JumpStartCommand>());
+		m_events.emplace("JUMP_THROW_START", factory.getObject<JumpThrowStartCommand>());
+		m_events.emplace("REVIVE", factory.getObject<ReviveCommand>());
+		m_events.emplace("RUN_RIGHT_START", factory.getObject<RunRightStartCommand>());
+		m_events.emplace("RUN_RIGHT_STOP", factory.getObject<RunRightStopCommand>());
+		m_events.emplace("SLIDE", factory.getObject<SlideCommand>());
+		m_events.emplace("THROW_START", factory.getObject<ThrowStartCommand>());
+		m_events.emplace("THROW_STOP", factory.getObject<ThrowStopCommand>());
+		m_events.emplace("HIT_LADDER_BOTTOM", factory.getObject<HitLadderBottomCommand>());
+		m_events.emplace("HIT_LADDER_TOP", factory.getObject<HitLadderTopCommand>());
+		m_events.emplace("HIT_GROUND", factory.getObject<HitGroundCommand>());
     }
 }
 
 bool Game::isRunning()
 {
-    return run;
+    return running;
+}
+
+void Game::run()
+{
+	while(isRunning())
+    {
+        handleEvents();
+        update();
+        render();
+    }
 }
 
 void Game::handleEvents()
@@ -66,7 +80,7 @@ void Game::handleEvents()
         gpp::Events input;
         if(e.type == SDL_QUIT)
         {
-            run = false;
+            running = false;
         }
 
         if(e.type == SDL_KEYDOWN)
@@ -128,7 +142,7 @@ void Game::handleEvents()
 			else if (e.key.keysym.sym == SDLK_UP)
 			{
 				DEBUG_MSG("gpp::Events::Event::MOVE_UP_START_EVENT");
-				m_events.find("ASCEND_START")->second->execute(&input);
+				m_events.find("MOVE_UP_START")->second->execute(&input);
 			}
 			// Climb Down
 			else if (e.key.keysym.sym == SDLK_DOWN)
@@ -231,7 +245,7 @@ void Game::handleEvents()
 			else if (e.key.keysym.sym == SDLK_RIGHT)
 			{
 				DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_STOP_EVENT");
-				m_events.find("RUN_RIGHT_START")->second->execute(&input);
+				m_events.find("RUN_RIGHT_STOP")->second->execute(&input);
 			}
 			// Stop Slide
 			else if (e.key.keysym.sym == SDLK_DOWN
@@ -251,7 +265,7 @@ void Game::handleEvents()
 			else if (e.key.keysym.sym == SDLK_DOWN)
 			{
 				DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_STOP_EVENT");
-				m_events.find("MOVE_DOWN_STOPx")->second->execute(&input);
+				m_events.find("MOVE_DOWN_STOP")->second->execute(&input);
 			}
 		}
 		player->handleInput(input);

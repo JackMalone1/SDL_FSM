@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Defines.h"
 #include <map>
+#include "Factory.h"
 
 class Game
 {
@@ -19,6 +20,7 @@ public:
     void handleEvents();
     void update();
     void render();
+    void run();
     void cleanup();
 private:
     const int SCREEN_WIDTH = 1200;
@@ -30,7 +32,7 @@ private:
     SDL_Event e;
     SDL_Texture* m_totalsText;
     SDL_Rect m_totalsRect;
-    bool run = true;
+    bool running = true;
     Player* player;
     AnimatedSprite* player_animated_sprite;
     SDL_Texture* player_texture;

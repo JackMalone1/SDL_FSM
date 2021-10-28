@@ -11,12 +11,7 @@ int main(int argv, char** args)
 
     Game *game = new Game();
 
-    while(game->isRunning())
-    {
-        game->handleEvents();
-        game->update();
-        game->render();
-    }
+    game->run();
 
     game->cleanup();
     return 0;

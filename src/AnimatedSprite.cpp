@@ -1,4 +1,4 @@
-#include "../include/AnimatedSprite.h"
+#include <AnimatedSprite.h>
 
 AnimatedSprite::AnimatedSprite() :
     m_currentFrame(0),

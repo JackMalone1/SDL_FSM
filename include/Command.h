@@ -28,6 +28,26 @@ class AccendLadderStopCommand : public Command
     virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_UP_STOP_EVENT);}
 };
 
+class MoveUpStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_UP_START_EVENT);}
+};
+
+class MoveUpStopCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_UP_STOP_EVENT);}
+};
+
+class MoveDownStartCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_DOWN_START_EVENT);}
+};
+
+class MoveDownStopCommand : public Command
+{
+    virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::MOVE_DOWN_STOP_EVENT);}
+};
+
 class AttackStartCommand : public Command
 {
     virtual void execute(gpp::Events* event){event->setCurrent(gpp::Events::Event::ATTACK_START_EVENT);}
