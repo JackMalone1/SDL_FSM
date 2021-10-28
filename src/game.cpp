@@ -269,7 +269,6 @@ void Game::handleEvents()
 			}
 		}
 		player->handleInput(input);
-
     }
 }
 
@@ -282,7 +281,8 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255,255,255,255);
-    player->getAnimatedSpriteFrame().render(0,0, renderer);
+	std::pair<int, int> position = player->getPosition();
+    player->getAnimatedSpriteFrame().render(position.first,position.second, renderer);
     SDL_RenderPresent(renderer);
 }
 

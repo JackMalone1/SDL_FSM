@@ -4,13 +4,13 @@
 #include "../include/IdlePlayerState.h"
 
 
-Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
+Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite), x(0), y(0)
 {
 	m_state = new IdlePlayerState();
 	m_state->enter(*this);
 }
 
-Player::Player(AnimatedSprite* sprite) : m_animated_sprite(*sprite)
+Player::Player(AnimatedSprite* sprite) : m_animated_sprite(*sprite), x(0), y(0)
 {
 	m_state = new IdlePlayerState();
 	m_state->enter(*this);
@@ -30,6 +30,16 @@ void Player::handleInput(gpp::Events input) {
 void Player::update() {
 	m_animated_sprite.update();
 	m_state->update(*this);
+}
+
+void Player::moveRight()
+{
+	x += 1;
+
+	if(x > 1200)
+	{
+		x = 0;
+	}
 }
 
 AnimatedSprite& Player::getAnimatedSprite() {

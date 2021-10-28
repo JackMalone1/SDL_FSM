@@ -52,7 +52,11 @@ PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 	}
 	return nullptr;
 }
-void RunRightPlayerState::update(Player& player) {}
+void RunRightPlayerState::update(Player& player)
+{
+	player.moveRight();
+}
+
 void RunRightPlayerState::enter(Player& player)
 {
 	DEBUG_MSG("Entering RunRightPlayerState");
