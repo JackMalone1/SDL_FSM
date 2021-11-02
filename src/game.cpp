@@ -139,13 +139,13 @@ void Game::handleEvents()
 				m_events.find("RUN_RIGHT_START")->second->execute(&input);
 			}
 			// Climb Up
-			else if (e.key.keysym.sym == SDLK_UP)
+			else if (e.key.keysym.sym == SDLK_w)
 			{
 				DEBUG_MSG("gpp::Events::Event::MOVE_UP_START_EVENT");
 				m_events.find("MOVE_UP_START")->second->execute(&input);
 			}
 			// Climb Down
-			else if (e.key.keysym.sym == SDLK_DOWN)
+			else if (e.key.keysym.sym == SDLK_s)
             {
 				DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_START_EVENT");
 				m_events.find("MOVE_DOWN_START")->second->execute(&input);
@@ -182,12 +182,6 @@ void Game::handleEvents()
 			}
 			// Running Slide
 			else if (e.key.keysym.sym == SDLK_DOWN
-				&&
-				e.key.keysym.sym == SDLK_RIGHT
-				||
-                e.key.keysym.sym == SDLK_RIGHT
-				&&
-				e.key.keysym.sym == SDLK_DOWN
 				)
 			{
 				DEBUG_MSG("gpp::Events::Event::SLIDE_EVENT");
@@ -248,21 +242,20 @@ void Game::handleEvents()
 				m_events.find("RUN_RIGHT_STOP")->second->execute(&input);
 			}
 			// Stop Slide
-			else if (e.key.keysym.sym == SDLK_DOWN
-				&&
-				e.key.keysym.sym == SDLK_RIGHT)
+			else if (e.key.keysym.sym == SDLK_DOWN&&
+					e.key.keysym.sym == SDLK_RIGHT)
 			{
 				DEBUG_MSG("gpp::Events::Event::RUN_RIGHT_START_EVENT");
 				m_events.find("RUN_RIGHT_START")->second->execute(&input);
 			}
 			// Stop Moving Up
-			else if (e.key.keysym.sym == SDLK_UP)
+			else if (e.key.keysym.sym == SDLK_w)
 			{
 				DEBUG_MSG("gpp::Events::Event::MOVE_UP_STOP_EVENT");
 				m_events.find("MOVE_UP_STOP")->second->execute(&input);
 			}
 			// Stop Moving Down
-			else if (e.key.keysym.sym == SDLK_DOWN)
+			else if (e.key.keysym.sym == SDLK_s)
 			{
 				DEBUG_MSG("gpp::Events::Event::MOVE_DOWN_STOP_EVENT");
 				m_events.find("MOVE_DOWN_STOP")->second->execute(&input);

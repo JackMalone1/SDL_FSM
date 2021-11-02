@@ -9,7 +9,7 @@ class Player
 private:
 	PlayerState* m_state;
 	AnimatedSprite m_animated_sprite;
-	int x,y;
+	float x,y;
 public:
 	Player(const AnimatedSprite&);
 	Player(AnimatedSprite*);
@@ -21,11 +21,15 @@ public:
 	PlayerState* getPlayerState();
 	void setPlayerState(PlayerState*);
 	void moveRight();
+	void jump();
+	void fall();
 
 	std::pair<int,int> getPosition()
 	{
 		return std::pair<int, int>(x, y);
 	}
+private:
+	void handleBoundaries();
 };
 #endif
 

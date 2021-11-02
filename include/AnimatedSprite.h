@@ -28,7 +28,7 @@ public:
     void setTextureRect(SDL_Rect);
     SDL_Texture* getTexture();
     void setTextureDimensions(int, int);
-    void render(int, int, SDL_Renderer*);
+    void render(float, float, SDL_Renderer*);
 private:
     Timer m_timer;
     float m_time;

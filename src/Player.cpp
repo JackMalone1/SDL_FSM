@@ -4,13 +4,13 @@
 #include "../include/IdlePlayerState.h"
 
 
-Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite), x(0), y(0)
+Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite), x(0), y(450.0f)
 {
 	m_state = new IdlePlayerState();
 	m_state->enter(*this);
 }
 
-Player::Player(AnimatedSprite* sprite) : m_animated_sprite(*sprite), x(0), y(0)
+Player::Player(AnimatedSprite* sprite) : m_animated_sprite(*sprite), x(0), y(450.0f)
 {
 	m_state = new IdlePlayerState();
 	m_state->enter(*this);
@@ -32,14 +32,30 @@ void Player::update() {
 	m_state->update(*this);
 }
 
-void Player::moveRight()
+void Player::handleBoundaries()
 {
-	x += 1;
-
 	if(x > 1200)
 	{
 		x = 0;
 	}
+}
+
+void Player::moveRight()
+{
+	x += 0.1f;
+	handleBoundaries();
+}
+
+void Player::jump()
+{
+	y -=0.1f;
+	if(y < 0.0f) y = 0.0f;
+}
+
+void Player::fall()
+{
+	y += 0.1f;
+	if(y > 450.0f) y = 450.0f;
 }
 
 AnimatedSprite& Player::getAnimatedSprite() {

@@ -133,7 +133,7 @@ void AnimatedSprite::setTextureDimensions(int t_width, int t_height)
     m_textureHeight = t_height;
 }
 
-void AnimatedSprite::render(int t_x, int t_y, SDL_Renderer* t_renderer)
+void AnimatedSprite::render(float t_x, float t_y, SDL_Renderer* t_renderer)
 {
     SDL_Rect renderRect = {t_x, t_y, m_frame.w, m_frame.h};
     SDL_RenderCopy(t_renderer, m_texture, &m_frame, &renderRect);
