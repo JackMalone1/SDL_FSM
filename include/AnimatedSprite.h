@@ -3,12 +3,13 @@
 #include "Timer.h"
 #include <vector>
 #include "Debug.h"
+#include "DrawAPI.h"
 class AnimatedSprite
 {
 public:
 	AnimatedSprite();
 	AnimatedSprite(SDL_Texture*);
-	AnimatedSprite(SDL_Texture*, SDL_Rect);
+	AnimatedSprite(SDL_Texture*, SDL_Rect t_rect);
 	~AnimatedSprite();
 
     const Timer& getTimer();

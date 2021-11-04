@@ -9,7 +9,10 @@ AnimatedSprite::AnimatedSprite() :
     m_played(0)
 {
     DEBUG_MSG("AnimatedSprite()");
+
 }
+
+
 
 AnimatedSprite::AnimatedSprite(SDL_Texture* t_texture) : AnimatedSprite()
 {
@@ -135,6 +138,6 @@ void AnimatedSprite::setTextureDimensions(int t_width, int t_height)
 
 void AnimatedSprite::render(float t_x, float t_y, SDL_Renderer* t_renderer)
 {
-    SDL_Rect renderRect = {t_x, t_y, m_frame.w, m_frame.h};
+    SDL_Rect renderRect = {static_cast<int>(t_x), static_cast<int>(t_y), m_frame.w, m_frame.h};
     SDL_RenderCopy(t_renderer, m_texture, &m_frame, &renderRect);
 }
